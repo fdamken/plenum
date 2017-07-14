@@ -21,10 +21,10 @@ package com.dmken.oss.plenum.model;
 
 import java.io.Serializable;
 
+import com.dmken.oss.plenum.util.Priority;
+
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.Wither;
 
 /**
@@ -72,47 +72,5 @@ public class SpeakListEntry implements Serializable, Comparable<SpeakListEntry> 
     @Override
     public int compareTo(final SpeakListEntry that) {
         return Integer.compare(this.pritority.getPriority(), that.pritority.getPriority());
-    }
-
-    /**
-     * Priority of a {@link SpeakListEntry speak list entry}. This is useful to
-     * handle entries like meta-entries before regular entries or something like
-     * that.
-     *
-     */
-    @RequiredArgsConstructor
-    @Getter
-    public static enum Priority {
-        /**
-         * Very low.
-         *
-         */
-        VERY_LOW(0),
-        /**
-         * Low.
-         *
-         */
-        LOW(50),
-        /**
-         * Normal.
-         *
-         */
-        NORMAL(100),
-        /**
-         * High.
-         *
-         */
-        HIGH(150),
-        /**
-         * Very high.
-         *
-         */
-        VERY_HIGH(200);
-
-        /**
-         * A numerical representation of the priority. Used to ease sorting.
-         *
-         */
-        private final int priority;
     }
 }

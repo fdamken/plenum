@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="false" />
+	</settings>
+	<typeAliases>
+		<!-- Data types. -->
+		<typeAlias type="com.dmken.oss.plenum.util.Priority" alias="Priority" />
+
+		<!-- Model type. -->
+		<typeAlias type="com.dmken.oss.plenum.model.Plenum" alias="Plenum" />
+		<typeAlias type="com.dmken.oss.plenum.model.Protocol" alias="Protocol" />
+		<typeAlias type="com.dmken.oss.plenum.model.Speaker" alias="Speaker" />
+		<typeAlias type="com.dmken.oss.plenum.model.SpeakList" alias="SpeakList" />
+		<typeAlias type="com.dmken.oss.plenum.model.SpeakListEntry" alias="SpeakListEntry" />
+	</typeAliases>
+	<typeHandlers>
+		<typeHandler handler="com.dmken.oss.plenum.data.handler.PriorityHandler" />
+	</typeHandlers>
+	<mappers>
+		<mapper resource="mapper/PlenumMapper.xml" />
+		<mapper resource="mapper/ProtocolMapper.xml" />
+		<mapper resource="mapper/SpeakerMapper.xml" />
+		<mapper resource="mapper/SpeakListMapper.xml" />
+		<mapper resource="mapper/SpeakListEntryMapper.xml" />
+	</mappers>
+</configuration>
