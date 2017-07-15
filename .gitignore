@@ -292,3 +292,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/osx,m2e,vim,git,java,maven,macos,linux,eclipse,windows,netbeans,intellij,sublimetext
+/planning.md
