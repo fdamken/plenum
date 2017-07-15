@@ -19,12 +19,48 @@
  */
 package com.dmken.oss.plenum.data.service;
 
+import java.time.LocalDateTime;
+import java.util.SortedSet;
+
+import com.dmken.oss.plenum.data.service.exception.NoSuchPlenumException;
+import com.dmken.oss.plenum.data.service.exception.NoSuchProtocolException;
+import com.dmken.oss.plenum.data.service.exception.NoSuchSpeakListException;
+import com.dmken.oss.plenum.data.service.exception.SpeakerAlreadyExistsException;
 import com.dmken.oss.plenum.model.Plenum;
+import com.dmken.oss.plenum.model.Speaker;
 
 /**
  * Service for the {@link Plenum plenum}.
  *
  */
 public interface PlenumService {
-    // TODO: Add methods.
+    SortedSet<Plenum> retrievePlenums();
+
+    Plenum retrievePlenum(final int plenumId) throws NoSuchPlenumException;
+
+    Plenum createPlenum(final String name, final String description);
+
+    Plenum setName(final int plenumId, final String name) throws NoSuchPlenumException;
+
+    Plenum setDescription(final int plenumId, final String description) throws NoSuchPlenumException;
+
+    Plenum setStart(final int plenumId, final LocalDateTime start) throws NoSuchPlenumException;
+
+    Plenum setEnd(final int plenumId, final LocalDateTime end) throws NoSuchPlenumException;
+
+    Plenum startPlenum(final int plenumId) throws NoSuchPlenumException;
+
+    Plenum stopPlenum(final int plenumId) throws NoSuchPlenumException;
+
+    Plenum addSpeaker(final int plenumId, final Speaker speaker) throws NoSuchPlenumException, SpeakerAlreadyExistsException;
+
+    Plenum removeSpeaker(final int plenumId, final int speakerId) throws NoSuchPlenumException;
+
+    Plenum addProtocol(final int plenumId, final int protocolId) throws NoSuchPlenumException, NoSuchProtocolException;
+
+    Plenum removeProtocol(final int plenumId, final int protocolId) throws NoSuchPlenumException;
+
+    Plenum addSpeakList(final int plenumId, final int speakListId) throws NoSuchPlenumException, NoSuchSpeakListException;
+
+    Plenum removeSpeakList(final int plenumId, final int speakListId) throws NoSuchPlenumException;
 }

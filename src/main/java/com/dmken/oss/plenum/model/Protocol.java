@@ -19,7 +19,6 @@
  */
 package com.dmken.oss.plenum.model;
 
-import java.io.Serializable;
 import java.net.URL;
 
 import lombok.Builder;
@@ -33,7 +32,7 @@ import lombok.experimental.Wither;
 @Data
 @Builder
 @Wither
-public class Protocol implements Serializable {
+public class Protocol implements Model, Comparable<Protocol> {
     /**
      * The serial version UID.
      *
@@ -46,6 +45,16 @@ public class Protocol implements Serializable {
      */
     private Integer id;
     /**
+     * Name.
+     *
+     */
+    private String name;
+    /**
+     * Description.
+     *
+     */
+    private String description;
+    /**
      * URL where the protocol can be edited (e.g. an etherpad link).
      *
      */
@@ -56,4 +65,14 @@ public class Protocol implements Serializable {
      *
      */
     private URL readOnlyURL;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    @Override
+    public int compareTo(final Protocol that) {
+        return this.name.compareTo(that.name);
+    }
 }

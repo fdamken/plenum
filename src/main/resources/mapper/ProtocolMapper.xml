@@ -1,4 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dmken.oss.plenum.model.Plenum">
+<mapper namespace="com.dmken.oss.plenum.data.mapper.ProtocolMapper">
+	<!-- BaseMapper -->
+	<select id="findAll" parameterType="Map" resultMap="maps.protocol">
+		SELECT
+			id,
+			name,
+			description,
+			url,
+			readOnlyUrl
+		FROM
+			Protocol
+	</select>
+	<select id="findById" parameterType="Map" resultMap="maps.protocol">
+		SELECT
+			id,
+			name,
+			description,
+			url,
+			readOnlyUrl
+		FROM
+			Protocol
+		WHERE
+			id = #{id}
+	</select>
+
+	<!-- ProtocolMapper -->
+	<select id="findbyPlenumId" parameterType="Map" resultMap="maps.protocol">
+		SELECT
+			Protocol.id AS id,
+			Protocol.name AS name,
+			Protocol.description AS description,
+			Protocol.url AS url,
+			Protocol.readOnlyUrl AS readOnlyUrl
+		FROM
+			Plenum_Protocol
+		WHERE
+			plenumId = #{plenumId}
+		INNER JOIN Protocol ON Plenum_Protocol.protocolId = Protocol.id
+	</select>
+	<insert id="createProtocol" parameterType="Map" useGeneratedKeys="true" keyProperty="protocol.id" keyColumn="id">
+		INSERT INTO Protocol (
+			name,
+			description,
+			url,
+			readOnlyUrl
+		) VALUES (
+			#{protocol.name},
+			#{protocol.description},
+			#{protocol.url},
+			#{protocol.readOnlyUrl}
+		)
+	</insert>
+	<update id="setName" parameterType="Map">
+		UPDATE
+			Protocol
+		SET
+			name = #{name}
+		WHERE
+			id = #{id}
+	</update>
+	<update id="setDescription" parameterType="Map">
+		UPDATE
+			Protocol
+		SET
+			description = #{description}
+		WHERE
+			id = #{id}
+	</update>
+	<update id="setUrl" parameterType="Map">
+		UPDATE
+			Protocol
+		SET
+			url = #{url}
+		WHERE
+			id = #{id}
+	</update>
+	<update id="setReadOnlyUrl" parameterType="Map">
+		UPDATE
+			Protocol
+		SET
+			readOnlyUrl = #{readOnlyUrl}
+		WHERE
+			id = #{id}
+	</update>
 </mapper>

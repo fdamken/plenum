@@ -19,12 +19,36 @@
  */
 package com.dmken.oss.plenum.data.service;
 
+import java.util.SortedSet;
+
+import com.dmken.oss.plenum.data.service.exception.NoSuchSpeakListException;
+import com.dmken.oss.plenum.data.service.exception.NoSuchSpeakerException;
 import com.dmken.oss.plenum.model.SpeakList;
+import com.dmken.oss.plenum.model.SpeakListEntry;
+import com.dmken.oss.plenum.model.Speaker;
+import com.dmken.oss.plenum.util.Priority;
 
 /**
  * Service for the {@link SpeakList speak list}.
  *
  */
 public interface SpeakListService {
-    // TODO: Add methods.
+    SortedSet<SpeakList> retrieveSpeakListsOfPlenum(final int plenumId);
+
+    Speaker retrieveSpeaker(final int speakListId, final int speakerId) throws NoSuchSpeakerException;
+
+    SpeakList retrieveSpeakList(final int speakListId) throws NoSuchSpeakListException;
+
+    SpeakList createSpeakList(final String name, final String description);
+
+    SpeakList setName(final int speakListId, final String name) throws NoSuchSpeakListException;
+
+    SpeakList setDescription(final int speakListId, final String description) throws NoSuchSpeakListException;
+
+    SpeakList pushSpeaker(final int speakListId, final int speakerId, final Priority priority)
+            throws NoSuchSpeakListException, NoSuchSpeakerException;
+
+    SpeakListEntry nextSpeaker(final int speakListId) throws NoSuchSpeakListException;
+
+    SpeakList removeSpeaker(final int speakListId, final int speakListEntryId) throws NoSuchSpeakListException;
 }

@@ -19,12 +19,36 @@
  */
 package com.dmken.oss.plenum.data.mapper;
 
+import java.util.SortedSet;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.dmken.oss.plenum.model.SpeakList;
+import com.dmken.oss.plenum.model.SpeakListEntry;
+import com.dmken.oss.plenum.model.Speaker;
 
 /**
  * Mapper for {@link SpeakList}.
  *
  */
-public interface SpeakListMapper extends BaseMapper {
-    // TODO: Add methods.
+public interface SpeakListMapper extends BaseMapper<SpeakList> {
+    SortedSet<SpeakList> findByPlenumId(@Param("plenumId") final int plenumId);
+
+    Speaker findSpeaker(@Param("speakListId") final int speakListId, @Param("speakerId") final int speakerId);
+
+    void createSpeakList(@Param("speakList") final SpeakList speakList);
+
+    void setName(@Param("id") final int id, @Param("name") final String name);
+
+    void setDescription(@Param("id") final int id, @Param("description") final String description);
+
+    void setSpeaking(@Param("id") final int id, @Param("speakListEntryId") final int speakListEntryId);
+
+    void removeSpeaking(@Param("id") final int id);
+
+    void addSpeaker(@Param("id") final int id, @Param("speakListEntry") final SpeakListEntry speakListEntry);
+
+    void removeSpeaker(@Param("id") final int id, @Param("speakListEntryId") final int speakListEntryId);
+
+    void setSpoke(@Param("id") final int id, @Param("speakListEntryId") final int speakListEntryId);
 }

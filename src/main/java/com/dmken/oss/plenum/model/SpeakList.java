@@ -19,7 +19,6 @@
  */
 package com.dmken.oss.plenum.model;
 
-import java.io.Serializable;
 import java.util.PriorityQueue;
 
 import lombok.Builder;
@@ -33,7 +32,7 @@ import lombok.experimental.Wither;
 @Data
 @Builder
 @Wither
-public class SpeakList implements Serializable {
+public class SpeakList implements Model, Comparable<SpeakList> {
     /**
      * The serial version UID.
      *
@@ -55,15 +54,31 @@ public class SpeakList implements Serializable {
      *
      */
     private String description;
-    // Foreign values.
+    // Mapped values.
     /**
      * Queue of next speakers.
      *
      */
     private PriorityQueue<SpeakListEntry> entries;
     /**
-     * The currently speaking entry.
+     * The currently speaking speaker.
      *
      */
     private SpeakListEntry speaking;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    @Override
+    public int compareTo(final SpeakList that) {
+        return this.name.compareTo(that.name);
+    }
+
+    public SpeakListEntry next() {
+        final SpeakListEntry speakListEntry = this.entries.poll();
+        this.setSpeaking(speakListEntry);
+        return speakListEntry;
+    }
 }

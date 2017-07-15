@@ -19,7 +19,7 @@
  */
 package com.dmken.oss.plenum.model;
 
-import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import com.dmken.oss.plenum.util.Priority;
 
@@ -35,7 +35,7 @@ import lombok.experimental.Wither;
 @Data
 @Builder
 @Wither
-public class SpeakListEntry implements Serializable, Comparable<SpeakListEntry> {
+public class SpeakListEntry implements Model, Comparable<SpeakListEntry> {
     /**
      * The serial version UID.
      *
@@ -51,13 +51,23 @@ public class SpeakListEntry implements Serializable, Comparable<SpeakListEntry> 
      * Priority.
      *
      */
-    private Priority pritority;
+    private Priority priority;
     /**
      * Whether the speak entry was processed or not.
      *
      */
     private Boolean spoke;
-    // Foreign values.
+    /**
+     * When the speaker started to speak. Useful for speaking time limitations.
+     *
+     */
+    private LocalDateTime from;
+    /**
+     * When the speaker stopped to speak.
+     *
+     */
+    private LocalDateTime to;
+    // Mapped values.
     /**
      * The actual person.
      *
@@ -71,6 +81,6 @@ public class SpeakListEntry implements Serializable, Comparable<SpeakListEntry> 
      */
     @Override
     public int compareTo(final SpeakListEntry that) {
-        return Integer.compare(this.pritority.getPriority(), that.pritority.getPriority());
+        return Integer.compare(this.priority.getPriority(), that.priority.getPriority());
     }
 }

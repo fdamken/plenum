@@ -1,4 +1,129 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dmken.oss.plenum.model.Plenum">
+<mapper namespace="com.dmken.oss.plenum.data.mapper.SpeakListMapper">
+	<!-- BaseMapper -->
+	<select id="findAll" parameterType="Map" resultMap="maps.speakList">
+		SELECT
+			*
+		FROM
+			SpeakList_Resolved
+	</select>
+	<select id="findById" parameterType="Map" resultMap="maps.speakList">
+		SELECT
+			*
+		FROM
+			SpeakList_Resolved
+		WHERE
+			id = #{id}
+	</select>
+
+	<!-- SpeakListMapper -->
+	<select id="findByPlenum" parameterType="Map" resultMap="maps.speakList">
+		SELECT
+			SpeakList_Resolved.id AS id,
+			SpeakList_Resolved.name AS name,
+			SpeakList_Resolved.description AS description,
+			SpeakList_Resolved.speakerSpeakListId AS speakerSpeakListId,
+			SpeakList_Resolved.speakingSpeakerId AS speakingSpeakerId,
+			SpeakList_Resolved.speakingSpeakerNumber AS speakingSpeakerNumber,
+			SpeakList_Resolved.speakingSpeakerDisplayName AS speakingSpeakerDisplayName,
+			SpeakList_Resolved.speakingSpeakerSince AS speakingSpeakerSince,
+			SpeakList_Resolved.speakingSpeakerUntil AS speakingSpeakerUntil,
+			SpeakList_Resolved.speakListEntrySpeakListId AS speakListEntrySpeakListId,
+			SpeakList_Resolved.speakListEntryId AS speakListEntryId
+			SpeakList_Resolved.speakListEntryPriority AS speakListEntryPriority,
+			SpeakList_Resolved.speakListEntrySpoke AS speakListEntrySpoke,
+			SpeakList_Resolved.speakListEntryFrom AS speakListEntryFrom,
+			SpeakList_Resolved.speakListEntryTo AS speakListEntryTo,
+			SpeakList_Resolved.speakerSpeakListEntryId AS speakerSpeakListEntryId,
+			SpeakList_Resolved.speakListSpeakerId AS speakListSpeakerId,
+			SpeakList_Resolved.speakListSpeakerNumber AS speakListSpeakerNumber,
+			SpeakList_Resolved.speakListSpeakerDisplayName AS speakListSpeakerDisplayName,
+			SpeakList_Resolved.speakListSpeakerSince AS speakListSpeakerSince,
+			SpeakList_Resolved.speakListSpeakerUntil AS speakListSpeakerUntil
+		FROM
+			Plenum_SpeakList
+		WHERE
+			plenumId = #{plenumId}
+		INNER JOIN SpeakList_Resolved ON Plenum_Protocol.speakListId = SpeakList_Resolved.id
+	</select>
+	<select id="findSpeaker" parameterType="Map" resultMap="maps.speakList">
+		SELECT
+			id,
+			number,
+			displayName,
+			since,
+			until
+		FROM
+			Speaker
+		WHERE
+			id = #{speakerId}
+	</select>
+	<insert id="createSpeakList" parameterType="Map" useGeneratedKeys="true" keyProperty="speakList.id" keyColumn="id">
+		INSERT INTO SpeakList (
+			name,
+			description
+		) VALUES (
+			#{speakList.name},
+			#{speakList.description}
+		)
+	</insert>
+	<update id="setName" parameterType="Map">
+		UPDATE
+			SpeakList
+		SET
+			name = #{name}
+		WHERE
+			id = #{id}
+	</update>
+	<update id="setDescription" parameterType="Map">
+		UPDATE
+			SpeakList
+		SET
+			description = #{description}
+		WHERE
+			id = #{id}
+	</update>
+	<update id="setSpeaking" parameterType="Map">
+		UPDATE
+			SpeakList
+		SET
+			speakingSpeakerId = #{speakListEntryId}
+		WHERE
+			id = #{id}
+	</update>
+	<update id="removeSpeaking" parameterType="Map">
+		UPDATE
+			SpeakList
+		SET
+			speakingSpeakerId = NULL
+		WHERE
+			id = #{id}
+	</update>
+	<update id="addSpeaker" parameterType="Map" useGeneratedKeys="true" keyProperty="speakListEntry.id" keyColumn="id">
+		INSERT INTO SpeakListEntry (
+			speakListId,
+			speakerId,
+			priority
+		) VALUES (
+			#{id},
+			#{speakListEntry.speaker.id},
+			#{speakListEntry.priority}
+		)
+	</update>
+	<delete id="removeSpeaker" parameterType="Map">
+		DELETE
+		FROM
+			SpeakListEntry
+		WHERE
+			id = #{speakListEntryId} AND speakListId = #{id}
+	</delete>
+	<update id="setSpoke" parameterType="Map">
+		UPDATE
+			SpeakListEntry
+		SET
+			spoke = TRUE
+		WHERE
+			id = #{speakListEntryId} AND speakListId = #{id}
+	</update>
 </mapper>

@@ -1,4 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dmken.oss.plenum.model.Plenum">
+<mapper namespace="com.dmken.oss.plenum.data.mapper.PlenumMapper">
+	<!-- BaseMapper -->
+	<select id="findAll" parameterType="Map" resultMap="maps.plenum">
+		SELECT
+			*
+		FROM
+			Plenum_Resolved
+	</select>
+	<select id="findById" parameterType="Map" resultMap="maps.plenum">
+		SELECT
+			*
+		FROM
+			Plenum_Resolved
+		WHERE
+			id = #{id}
+	</select>
+
+	<!-- PlenumMapper -->
+	<insert id="createPlenum" parameterType="Map" useGeneratedKeys="true" keyProperty="plenum.id" keyColumn="id">
+		INSERT INTO Plenum (
+			name,
+			description
+		) VALUES (
+			#{plenum.name},
+			#{plenum.description}
+		)
+	</insert>
+	<update id="setName" parameterType="Map">
+		UPDATE
+			Plenum
+		SET
+			name = #{name}
+		WHERE
+			id = #{id}
+	</update>
+	<update id="setDescription" parameterType="Map">
+		UPDATE
+			Plenum
+		SET
+			description = #{description}
+		WHERE
+			id = #{id}
+	</update>
+	<update id="setStart" parameterType="Map">
+		UPDATE
+			Plenum
+		SET
+			start = #{start}
+		WHERE
+			id = #{id}
+	</update>
+	<update id="setEnd" parameterType="Map">
+		UPDATE
+			Plenum
+		SET
+			end = #{end}
+		WHERE
+			id = #{id}
+	</update>
+	<insert id="addSpeaker" parameterType="Map" useGeneratedKeys="true" keyProperty="speaker.id" keyColumn="id">
+		INSERT INTO Speaker (
+			plenumId,
+			number,
+			displayName,
+			since,
+			until
+		) VALUES (
+			#{plenumId},
+			#{speaker.number},
+			#{speaker.displayName},
+			#{speaker.since},
+			#{speaker.until}
+		)
+	</insert>
+	<delete id="removeSpeaker" parameterType="Map">
+		DELETE
+		FROM
+			Speaker
+		WHERE
+			id = #{speakerId} AND plenumId = #{id}
+	</delete>
+	<insert id="addProtocol" parameterType="Map">
+		INSERT INTO Plenum_Protocol (
+			plenumId,
+			protocolId
+		) VALUES (
+			#{id},
+			#{protocolId}
+		)
+	</insert>
+	<delete id="removeProtocol" parameterType="Map">
+		DELETE
+		FROM
+			Plenum_Protocol
+		WHERE
+			plenumId = #{id} AND protocolId = #{protocolId}
+	</delete>
+	<insert id="addSpeakList" parameterType="Map">
+		INSERT INTO Plenum_SpeakList (
+			plenumId,
+			speakListId
+		) VALUES (
+			#{id},
+			#{speakListId}
+		)
+	</insert>
+	<delete id="removeSpeakList" parameterType="Map">
+		DELETE
+		FROM
+			Plenum_SpeakList
+		WHERE
+			plenumId = #{id} AND speakListId = #{speakListId}
+	</delete>
+	<select id="hasSpeaker" parameterType="Map">
+		SELECT
+			COUNT(id)
+		FROM
+			Speaker
+		WHERE
+			plenumId = #{plenumId} AND ( number = #{number} OR displayName = #{displayName} )
+	</select>
 </mapper>

@@ -19,12 +19,43 @@
  */
 package com.dmken.oss.plenum.data.mapper;
 
+import java.time.LocalDateTime;
+import java.util.SortedSet;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.dmken.oss.plenum.model.Plenum;
+import com.dmken.oss.plenum.model.Speaker;
 
 /**
  * Mapper for {@link Plenum}.
  *
  */
-public interface PlenumMapper extends BaseMapper {
-    // TODO: Add methods.
+public interface PlenumMapper extends BaseMapper<Plenum> {
+    SortedSet<Plenum> retrievePlenums();
+
+    void createPlenum(@Param("plenum") final Plenum plenum);
+
+    void setName(@Param("id") final int id, @Param("name") final String name);
+
+    void setDescription(@Param("id") final int id, @Param("description") final String description);
+
+    void setStart(@Param("id") final int id, @Param("start") final LocalDateTime start);
+
+    void setEnd(@Param("id") final int id, @Param("end") final LocalDateTime end);
+
+    void addSpeaker(@Param("id") final int id, @Param("speaker") final Speaker speaker);
+
+    void removeSpeaker(@Param("plenumId") final int id, @Param("speakerId") final int speakerId);
+
+    void addProtocol(@Param("id") final int id, @Param("protocolId") final int protocolId);
+
+    void removeProtocol(@Param("id") final int id, @Param("protocolId") final int protocolId);
+
+    void addSpeakList(@Param("id") final int id, @Param("speakListId") final int speakListId);
+
+    void removeSpeakList(@Param("id") final int id, @Param("speakListId") final int speakListId);
+
+    boolean hasSpeaker(@Param("id") final int id, @Param("number") final int number,
+            @Param("displayName") final String displayName);
 }

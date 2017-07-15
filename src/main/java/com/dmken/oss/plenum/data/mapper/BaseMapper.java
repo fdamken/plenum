@@ -19,11 +19,31 @@
  */
 package com.dmken.oss.plenum.data.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 /**
  * Marker used to mark this package and to mark a mapper as a mapper (only
  * interfaces extending this interface are accepted as mappers).
  *
+ * @param <T>
+ *            The type the mapper is for.
  */
-public interface BaseMapper {
-    // Nothing to do.
+public interface BaseMapper<T> {
+    /**
+     * Finds all database entries.
+     *
+     * @return All database entries.
+     */
+    List<T> findAll();
+
+    /**
+     * Finds the database entry with the given ID.
+     *
+     * @param id
+     *            The ID to search for.
+     * @return The model, if found. Otherwise <code>null</code>.
+     */
+    T findById(@Param("id") final int id);
 }

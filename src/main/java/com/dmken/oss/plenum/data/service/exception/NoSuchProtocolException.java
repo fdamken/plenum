@@ -17,14 +17,21 @@
  * limitations under the License.
  * #L%
  */
-package com.dmken.oss.plenum.data.mapper;
+package com.dmken.oss.plenum.data.service.exception;
 
-import com.dmken.oss.plenum.model.SpeakListEntry;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-/**
- * Mapper for {@link SpeakListEntry}.
- *
- */
-public interface SpeakListEntryMapper extends BaseMapper {
-    // TODO: Add methods.
+@SuppressWarnings("javadoc")
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class NoSuchProtocolException extends ServiceException {
+    private static final long serialVersionUID = -4208863199844282282L;
+
+    public NoSuchProtocolException(final String message, final Throwable cause) {
+        super(message, cause);
+    }
+
+    public NoSuchProtocolException(final String message) {
+        super(message);
+    }
 }

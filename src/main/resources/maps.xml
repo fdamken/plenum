@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="maps">
+	<!-- Plenum. -->
+	<resultMap type="Plenum" id="plenum">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="description" column="description" />
+		<result property="start" column="start" />
+		<result property="end" column="end" />
+		<collection property="speakers" ofType="Speaker" foreignColumn="speakerPlenumId">
+			<id property="id" column="speakerId" />
+			<result property="number" column="speakerNumber" />
+			<result property="displayName" column="speakerDisplayName" />
+			<result property="since" column="speakerSince" />
+			<result property="until" column="speakerUntil" />
+		</collection>
+	</resultMap>
+
+	<!-- Protocol. -->
+	<resultMap type="Protocol" id="protocol">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="description" column="description" />
+		<result property="url" column="url" />
+		<result property="readOnlyUrl" column="readOnylUrl" />
+	</resultMap>
+
+	<!-- Speaker. -->
+	<resultMap type="Speaker" id="speaker">
+		<id property="id" column="id" />
+		<result property="number" column="number" />
+		<result property="displayName" column="displayName" />
+		<result property="since" column="dince" />
+		<result property="until" column="until" />
+	</resultMap>
+
+	<!-- SpeakList. -->
+	<resultMap type="SpeakList" id="speakList">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="description" column="description" />
+		<association property="speaking" foreignColumn="speakingSpeakListEntrySpeakListId">
+			<id property="id" column="speakingSpeakListEntryId" />
+			<result property="priority" column="speakingSpeakListEntryPriority" />
+			<result property="spoke" column="speakingSpeakListEntrySpoke" />
+			<result property="from" column="speakingSpeakListEntryFrom" />
+			<result property="to" column="speakingSpeakListEntryTo" />
+			<association property="speaker" foreignColumn="speakingSpeakerSpeakListEntryId">
+				<id property="id" column="speakingSpeakerId" />
+				<result property="number" column="speakingSpeakerNumber" />
+				<result property="displayName" column="speakingSpeakerDisplayName" />
+				<result property="since" column="speakingSpeakerSince" />
+				<result property="until" column="speakingSpeakerUntil" />
+			</association>
+		</association>
+		<collection property="entries" ofType="SpeakListEntry" foreignColumn="speakListEntrySpeakListId">
+			<id property="id" column="speakListEntryId" />
+			<result property="priority" column="speakListEntryPriority" />
+			<result property="spoke" column="speakListEntrySpoke" />
+			<result property="from" column="speakListEntryFrom" />
+			<result property="to" column="speakListEntryTo" />
+			<association property="speaker" foreignColumn="speakerSpeakListEntryId">
+				<id property="id" column="speakListSpeakerId" />
+				<result property="number" column="speakListSpeakerNumber" />
+				<result property="displayName" column="speakListSpeakerDisplayName" />
+				<result property="since" column="speakListSpeakerSince" />
+				<result property="until" column="speakListSpeakerUntil" />
+			</association>
+		</collection>
+	</resultMap>
+
+	<!-- SpeakListEntry. -->
+	<resultMap type="SpeakListEntry" id="speakListEntry">
+		<id property="id" column="id" />
+		<result property="priority" column="priority" />
+		<result property="spoke" column="spoke" />
+		<result property="from" column="from" />
+		<result property="to" column="to" />
+		<association property="speaker" foreignColumn="speakerSpeakListEntryId">
+			<id property="id" column="speakerId" />
+			<result property="number" column="speakerNumber" />
+			<result property="displayName" column="speakerDisplayName" />
+			<result property="since" column="speakerSince" />
+			<result property="until" column="speakerUntil" />
+		</association>
+	</resultMap>
+</mapper>

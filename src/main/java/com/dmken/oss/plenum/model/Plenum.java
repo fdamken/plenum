@@ -19,9 +19,8 @@
  */
 package com.dmken.oss.plenum.model;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.SortedSet;
 
 import lombok.Builder;
 import lombok.Data;
@@ -36,7 +35,7 @@ import lombok.experimental.Wither;
 @Data
 @Builder
 @Wither
-public class Plenum implements Serializable {
+public class Plenum implements Model {
     /**
      * The serial version UID.
      *
@@ -68,15 +67,21 @@ public class Plenum implements Serializable {
      *
      */
     private LocalDateTime end;
-    // Foreign values.
+    // Mapped values.
     /**
      * All registered speakers.
      *
      */
-    private List<Speaker> speakers;
+    private SortedSet<Speaker> speakers;
+    // Foreign values.
     /**
      * All available protocols.
      *
      */
-    private List<Protocol> protocols;
+    private SortedSet<Protocol> protocols;
+    /**
+     * All available speak lists.
+     *
+     */
+    private SortedSet<SpeakList> speakLists;
 }

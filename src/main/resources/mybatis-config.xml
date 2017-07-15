@@ -17,12 +17,12 @@
 	</typeAliases>
 	<typeHandlers>
 		<typeHandler handler="com.dmken.oss.plenum.data.handler.PriorityHandler" />
+		<typeHandler handler="com.dmken.oss.plenum.data.handler.URLHandler" />
 	</typeHandlers>
 	<mappers>
+		<mapper resource="maps.xml" />
 		<mapper resource="mapper/PlenumMapper.xml" />
 		<mapper resource="mapper/ProtocolMapper.xml" />
-		<mapper resource="mapper/SpeakerMapper.xml" />
 		<mapper resource="mapper/SpeakListMapper.xml" />
-		<mapper resource="mapper/SpeakListEntryMapper.xml" />
 	</mappers>
 </configuration>

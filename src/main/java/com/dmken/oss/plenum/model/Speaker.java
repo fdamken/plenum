@@ -19,7 +19,6 @@
  */
 package com.dmken.oss.plenum.model;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import lombok.Builder;
@@ -34,7 +33,7 @@ import lombok.experimental.Wither;
 @Data
 @Builder
 @Wither
-public class Speaker implements Serializable {
+public class Speaker implements Model, Comparable<Speaker> {
     /**
      * The serial version UID.
      *
@@ -66,4 +65,14 @@ public class Speaker implements Serializable {
      *
      */
     private LocalDateTime until;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    @Override
+    public int compareTo(final Speaker that) {
+        return this.displayName.compareTo(that.displayName);
+    }
 }

@@ -19,12 +19,27 @@
  */
 package com.dmken.oss.plenum.data.mapper;
 
+import java.net.URL;
+import java.util.SortedSet;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.dmken.oss.plenum.model.Protocol;
 
 /**
  * Mapper for {@link Protocol}.
  *
  */
-public interface ProtocolMapper extends BaseMapper {
-    // TODO: Add methods.
+public interface ProtocolMapper extends BaseMapper<Protocol> {
+    SortedSet<Protocol> findByPlenumId(@Param("plenumId") final int plenumId);
+
+    void createProtocol(@Param("protocol") final Protocol protocol);
+
+    void setName(@Param("id") final int id, @Param("name") final String name);
+
+    void setDescription(@Param("id") final int id, @Param("description") final String description);
+
+    void setUrl(@Param("id") final int id, @Param("url") final URL url);
+
+    void setReadOnlyUrl(@Param("id") final int id, @Param("readOnlyURL") final URL readOnlyUrl);
 }

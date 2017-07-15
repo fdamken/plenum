@@ -17,14 +17,17 @@
  * limitations under the License.
  * #L%
  */
-package com.dmken.oss.plenum.data.mapper;
+package com.dmken.oss.plenum.model;
 
-import com.dmken.oss.plenum.model.Speaker;
+import java.io.Serializable;
+import java.util.Comparator;
 
 /**
- * Mapper for {@link Speaker}.
+ * Marks a class as a model. Models are POJOs.
  *
  */
-public interface SpeakerMapper extends BaseMapper {
-    // TODO: Add methods.
+public interface Model extends Serializable {
+    Comparator<Model> ID_COMPARATOR = Comparator.comparing(Model::getId, Integer::compare);
+
+    Integer getId();
 }
