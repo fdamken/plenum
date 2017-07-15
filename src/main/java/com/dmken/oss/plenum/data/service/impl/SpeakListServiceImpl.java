@@ -24,6 +24,7 @@ import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dmken.oss.plenum.data.mapper.SpeakListMapper;
 import com.dmken.oss.plenum.data.service.SpeakListService;
@@ -53,6 +54,7 @@ public class SpeakListServiceImpl implements SpeakListService {
      * @see com.dmken.oss.plenum.data.service.SpeakListService#retrieveSpeakListsOfPlenum(int)
      */
     @Override
+    @Transactional(readOnly = true)
     public SortedSet<SpeakList> retrieveSpeakListsOfPlenum(final int plenumId) {
         return new TreeSet<>(this.speakListMapper.findByPlenumId(plenumId));
     }
@@ -64,6 +66,7 @@ public class SpeakListServiceImpl implements SpeakListService {
      *      int)
      */
     @Override
+    @Transactional(readOnly = true)
     public Speaker retrieveSpeaker(final int speakListId, final int speakerId) throws NoSuchSpeakerException {
         final Speaker speaker = this.speakListMapper.findSpeaker(speakListId, speakerId);
         if (speaker == null) {
@@ -79,6 +82,7 @@ public class SpeakListServiceImpl implements SpeakListService {
      * @see com.dmken.oss.plenum.data.service.SpeakListService#retrieveSpeakList(int)
      */
     @Override
+    @Transactional(readOnly = true)
     public SpeakList retrieveSpeakList(final int speakListId) throws NoSuchSpeakListException {
         final SpeakList speakList = this.speakListMapper.findById(speakListId);
         if (speakList == null) {
@@ -94,6 +98,7 @@ public class SpeakListServiceImpl implements SpeakListService {
      *      java.lang.String)
      */
     @Override
+    @Transactional
     public SpeakList createSpeakList(final String name, final String description) {
         final SpeakList speakList = SpeakList.builder() //
                 .name(name) //
@@ -110,6 +115,7 @@ public class SpeakListServiceImpl implements SpeakListService {
      *      java.lang.String)
      */
     @Override
+    @Transactional
     public SpeakList setName(final int speakListId, final String name) throws NoSuchSpeakListException {
         final SpeakList speakList = this.retrieveSpeakList(speakListId);
         this.speakListMapper.setName(speakListId, name);
@@ -123,6 +129,7 @@ public class SpeakListServiceImpl implements SpeakListService {
      *      java.lang.String)
      */
     @Override
+    @Transactional
     public SpeakList setDescription(final int speakListId, final String description) throws NoSuchSpeakListException {
         final SpeakList speakList = this.retrieveSpeakList(speakListId);
         this.speakListMapper.setDescription(speakListId, description);
@@ -136,6 +143,7 @@ public class SpeakListServiceImpl implements SpeakListService {
      *      int, com.dmken.oss.plenum.util.Priority)
      */
     @Override
+    @Transactional
     public SpeakList pushSpeaker(final int speakListId, final int speakerId, final Priority priority)
             throws NoSuchSpeakListException, NoSuchSpeakerException {
         final SpeakList speakList = this.retrieveSpeakList(speakListId);
@@ -155,6 +163,7 @@ public class SpeakListServiceImpl implements SpeakListService {
      * @see com.dmken.oss.plenum.data.service.SpeakListService#nextSpeaker(int)
      */
     @Override
+    @Transactional
     public SpeakListEntry nextSpeaker(final int speakListId) throws NoSuchSpeakListException {
         final SpeakList speakList = this.retrieveSpeakList(speakListId);
         final SpeakListEntry speakListEntry = speakList.next();
@@ -174,6 +183,7 @@ public class SpeakListServiceImpl implements SpeakListService {
      *      int)
      */
     @Override
+    @Transactional
     public SpeakList removeSpeaker(final int speakListId, final int speakListEntryId) throws NoSuchSpeakListException {
         final SpeakList speakList = this.retrieveSpeakList(speakListId);
         this.speakListMapper.removeSpeaker(speakListId, speakListEntryId);

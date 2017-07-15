@@ -36,7 +36,7 @@ import com.dmken.oss.plenum.data.mapper.BaseMapper;
             markerInterface = BaseMapper.class)
 public class MyBatisConfiguration {
     /**
-     * Invokes after bean was initialized.
+     * Invoked after bean was initialized.
      *
      * <p>
      * <b> NOTE: To be invoked by Spring! Do not invoke manually! </b>

@@ -25,6 +25,7 @@ import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dmken.oss.plenum.data.mapper.PlenumMapper;
 import com.dmken.oss.plenum.data.service.PlenumService;
@@ -71,6 +72,7 @@ public class PlenumServiceImpl implements PlenumService {
      * @see com.dmken.oss.plenum.data.service.PlenumService#retrievePlenums()
      */
     @Override
+    @Transactional(readOnly = true)
     public SortedSet<Plenum> retrievePlenums() {
         final SortedSet<Plenum> set = new TreeSet<>(Model.ID_COMPARATOR);
         set.addAll(this.plenumMapper.findAll());
@@ -83,6 +85,7 @@ public class PlenumServiceImpl implements PlenumService {
      * @see com.dmken.oss.plenum.data.service.PlenumService#retrievePlenum(int)
      */
     @Override
+    @Transactional(readOnly = true)
     public Plenum retrievePlenum(final int plenumId) throws NoSuchPlenumException {
         final Plenum plenum = this.plenumMapper.findById(plenumId);
         if (plenum == null) {
@@ -100,6 +103,7 @@ public class PlenumServiceImpl implements PlenumService {
      *      java.lang.String)
      */
     @Override
+    @Transactional
     public Plenum createPlenum(final String name, final String description) {
         final Plenum plenum = Plenum.builder() //
                 .name(name) //
@@ -116,6 +120,7 @@ public class PlenumServiceImpl implements PlenumService {
      *      java.lang.String)
      */
     @Override
+    @Transactional
     public Plenum setName(final int plenumId, final String name) throws NoSuchPlenumException {
         final Plenum plenum = this.retrievePlenum(plenumId);
         this.plenumMapper.setName(plenumId, name);
@@ -130,6 +135,7 @@ public class PlenumServiceImpl implements PlenumService {
      *      java.lang.String)
      */
     @Override
+    @Transactional
     public Plenum setDescription(final int plenumId, final String description) throws NoSuchPlenumException {
         final Plenum plenum = this.retrievePlenum(plenumId);
         this.plenumMapper.setDescription(plenumId, description);
@@ -144,6 +150,7 @@ public class PlenumServiceImpl implements PlenumService {
      *      java.time.LocalDateTime)
      */
     @Override
+    @Transactional
     public Plenum setStart(final int plenumId, final LocalDateTime start) throws NoSuchPlenumException {
         final Plenum plenum = this.retrievePlenum(plenumId);
         this.plenumMapper.setStart(plenumId, start);
@@ -158,6 +165,7 @@ public class PlenumServiceImpl implements PlenumService {
      *      java.time.LocalDateTime)
      */
     @Override
+    @Transactional
     public Plenum setEnd(final int plenumId, final LocalDateTime end) throws NoSuchPlenumException {
         final Plenum plenum = this.retrievePlenum(plenumId);
         this.plenumMapper.setEnd(plenumId, end);
@@ -192,6 +200,7 @@ public class PlenumServiceImpl implements PlenumService {
      *      com.dmken.oss.plenum.model.Speaker)
      */
     @Override
+    @Transactional
     public Plenum addSpeaker(final int plenumId, final Speaker speaker)
             throws NoSuchPlenumException, SpeakerAlreadyExistsException {
         if (this.plenumMapper.hasSpeaker(plenumId, speaker.getNumber(), speaker.getDisplayName())) {
@@ -212,6 +221,7 @@ public class PlenumServiceImpl implements PlenumService {
      *      int)
      */
     @Override
+    @Transactional
     public Plenum removeSpeaker(final int plenumId, final int speakerId) throws NoSuchPlenumException {
         final Plenum plenum = this.retrievePlenum(plenumId);
         this.plenumMapper.removeSpeaker(plenumId, speakerId);
@@ -227,6 +237,7 @@ public class PlenumServiceImpl implements PlenumService {
      *      int)
      */
     @Override
+    @Transactional
     public Plenum addProtocol(final int plenumId, final int protocolId) throws NoSuchPlenumException, NoSuchProtocolException {
         final Plenum plenum = this.retrievePlenum(plenumId);
         final Protocol protocol = this.protocolService.retrieveProtocol(protocolId);
@@ -242,6 +253,7 @@ public class PlenumServiceImpl implements PlenumService {
      *      int)
      */
     @Override
+    @Transactional
     public Plenum removeProtocol(final int plenumId, final int protocolId) throws NoSuchPlenumException {
         final Plenum plenum = this.retrievePlenum(plenumId);
         this.plenumMapper.removeProtocol(plenumId, protocolId);
@@ -256,6 +268,7 @@ public class PlenumServiceImpl implements PlenumService {
      *      int)
      */
     @Override
+    @Transactional
     public Plenum addSpeakList(final int plenumId, final int speakListId) throws NoSuchPlenumException, NoSuchSpeakListException {
         final Plenum plenum = this.retrievePlenum(plenumId);
         final SpeakList speakList = this.speakListService.retrieveSpeakList(speakListId);
@@ -271,6 +284,7 @@ public class PlenumServiceImpl implements PlenumService {
      *      int)
      */
     @Override
+    @Transactional
     public Plenum removeSpeakList(final int plenumId, final int speakListId) throws NoSuchPlenumException {
         final Plenum plenum = this.retrievePlenum(plenumId);
         this.plenumMapper.removeSpeakList(plenumId, speakListId);

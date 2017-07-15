@@ -24,6 +24,7 @@ import java.util.SortedSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dmken.oss.plenum.data.mapper.ProtocolMapper;
 import com.dmken.oss.plenum.data.service.ProtocolService;
@@ -49,6 +50,7 @@ public class ProtocolServiceImpl implements ProtocolService {
      * @see com.dmken.oss.plenum.data.service.ProtocolService#retrieveProtocolsOfPlenum(int)
      */
     @Override
+    @Transactional(readOnly = true)
     public SortedSet<Protocol> retrieveProtocolsOfPlenum(final int plenumId) {
         return this.protocolMapper.findByPlenumId(plenumId);
     }
@@ -59,6 +61,7 @@ public class ProtocolServiceImpl implements ProtocolService {
      * @see com.dmken.oss.plenum.data.service.ProtocolService#retrieveProtocol(int)
      */
     @Override
+    @Transactional(readOnly = true)
     public Protocol retrieveProtocol(final int protocolId) throws NoSuchProtocolException {
         final Protocol protocol = this.protocolMapper.findById(protocolId);
         if (protocol == null) {
@@ -74,6 +77,7 @@ public class ProtocolServiceImpl implements ProtocolService {
      *      java.lang.String, java.net.URL, java.net.URL)
      */
     @Override
+    @Transactional
     public Protocol createProtocol(final String name, final String description, final URL url, final URL readOnlyURL) {
         final Protocol protocol = Protocol.builder() //
                 .name(name) //
@@ -92,6 +96,7 @@ public class ProtocolServiceImpl implements ProtocolService {
      *      java.lang.String)
      */
     @Override
+    @Transactional
     public Protocol setName(final int protocolId, final String name) throws NoSuchProtocolException {
         final Protocol protocol = this.retrieveProtocol(protocolId);
         this.protocolMapper.setName(protocolId, name);
@@ -106,6 +111,7 @@ public class ProtocolServiceImpl implements ProtocolService {
      *      java.lang.String)
      */
     @Override
+    @Transactional
     public Protocol setDescription(final int protocolId, final String description) throws NoSuchProtocolException {
         final Protocol protocol = this.retrieveProtocol(protocolId);
         this.protocolMapper.setDescription(protocolId, description);
@@ -120,6 +126,7 @@ public class ProtocolServiceImpl implements ProtocolService {
      *      java.net.URL)
      */
     @Override
+    @Transactional
     public Protocol setURL(final int protocolId, final URL url) throws NoSuchProtocolException {
         final Protocol protocol = this.retrieveProtocol(protocolId);
         this.protocolMapper.setUrl(protocolId, url);
@@ -134,6 +141,7 @@ public class ProtocolServiceImpl implements ProtocolService {
      *      java.net.URL)
      */
     @Override
+    @Transactional
     public Protocol setReadOnlyURL(final int protocolId, final URL readOnlyUrl) throws NoSuchProtocolException {
         final Protocol protocol = this.retrieveProtocol(protocolId);
         this.protocolMapper.setReadOnlyUrl(protocolId, readOnlyUrl);
