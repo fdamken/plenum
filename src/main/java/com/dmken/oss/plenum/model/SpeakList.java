@@ -21,8 +21,10 @@ package com.dmken.oss.plenum.model;
 
 import java.util.PriorityQueue;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Wither;
 
 /**
@@ -32,6 +34,8 @@ import lombok.experimental.Wither;
 @Data
 @Builder
 @Wither
+@NoArgsConstructor
+@AllArgsConstructor
 public class SpeakList implements Model, Comparable<SpeakList> {
     /**
      * The serial version UID.

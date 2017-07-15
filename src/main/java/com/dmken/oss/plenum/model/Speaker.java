@@ -21,8 +21,10 @@ package com.dmken.oss.plenum.model;
 
 import java.time.LocalDateTime;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Wither;
 
 /**
@@ -33,6 +35,8 @@ import lombok.experimental.Wither;
 @Data
 @Builder
 @Wither
+@NoArgsConstructor
+@AllArgsConstructor
 public class Speaker implements Model, Comparable<Speaker> {
     /**
      * The serial version UID.

@@ -21,12 +21,15 @@ package com.dmken.oss.plenum.ui.view;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.dmken.oss.plenum.data.service.PlenumService;
 import com.dmken.oss.plenum.model.Plenum;
 import com.dmken.oss.plenum.ui.util.FormUtil;
 import com.dmken.oss.plenum.ui.util.NotificationUtil;
 import com.dmken.oss.plenum.ui.view.design.CreatePlenumDesign;
 import com.vaadin.data.Binder;
-import com.vaadin.data.BinderValidationStatus;
+import com.vaadin.data.ValidationException;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.spring.annotation.SpringView;
@@ -49,6 +52,9 @@ public class CreatePlenumView extends CreatePlenumDesign implements View {
      *
      */
     public static final String NAME = "create-plenum";
+
+    @Autowired
+    private PlenumService plenumService;
 
     /**
      * The binder for {@link Plenum}.
@@ -73,8 +79,10 @@ public class CreatePlenumView extends CreatePlenumDesign implements View {
                 .bind(Plenum::getDescription, Plenum::setDescription);
 
         this.buttonSave.addClickListener(event -> {
-            final BinderValidationStatus<Plenum> validationStatus = this.binder.validate();
-            if (validationStatus.hasErrors()) {
+            final Plenum bindPlenum = new Plenum();
+            try {
+                this.binder.writeBean(bindPlenum);
+            } catch (final ValidationException ex) {
                 NotificationUtil.chain()
                         .caption("Invalid Data")
                         .description("The given data is not valid!")
@@ -82,6 +90,10 @@ public class CreatePlenumView extends CreatePlenumDesign implements View {
                         .show();
                 return;
             }
+            final Plenum plenum = this.plenumService.createPlenum(bindPlenum.getName(), bindPlenum.getDescription());
+
+            System.out.println("Created plenum " + plenum);
+
             NotificationUtil.chain()
                     .caption("Created")
                     .description("The plenum was created.")

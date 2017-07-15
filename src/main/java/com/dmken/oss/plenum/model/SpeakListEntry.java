@@ -23,8 +23,10 @@ import java.time.LocalDateTime;
 
 import com.dmken.oss.plenum.util.Priority;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Wither;
 
 /**
@@ -35,6 +37,8 @@ import lombok.experimental.Wither;
 @Data
 @Builder
 @Wither
+@NoArgsConstructor
+@AllArgsConstructor
 public class SpeakListEntry implements Model, Comparable<SpeakListEntry> {
     /**
      * The serial version UID.
