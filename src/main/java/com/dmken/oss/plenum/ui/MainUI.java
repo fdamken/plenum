@@ -88,6 +88,17 @@ public class MainUI extends UI implements ViewDisplay {
         this.springViewDisplay.setContent((Component) view);
     }
 
+    /**
+     * Creates a navigation {@link Button button} with the given text for the
+     * given view.
+     *
+     * @param text
+     *            The text to show on the {@link Button button}.
+     * @param view
+     *            The name of the view to show when clicking on the
+     *            {@link Button button}.
+     * @return The newly created {@link Button}.
+     */
     private Button createNavigationButton(final String text, final String view) {
         final Button button = new Button(text);
         button.addClickListener(event -> this.getUI().getNavigator().navigateTo(view));

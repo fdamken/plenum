@@ -50,6 +50,10 @@ public class CreatePlenumView extends CreatePlenumDesign implements View {
      */
     public static final String NAME = "create-plenum";
 
+    /**
+     * The binder for {@link Plenum}.
+     *
+     */
     private final Binder<Plenum> binder = new Binder<>();
 
     /**

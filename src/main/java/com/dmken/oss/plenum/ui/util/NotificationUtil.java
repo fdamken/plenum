@@ -29,29 +29,88 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.experimental.UtilityClass;
 
+/**
+ * Utilities for {@link Notification notifications}.
+ *
+ */
 @UtilityClass
 public class NotificationUtil {
+    /**
+     * Creates a new {@link NotificationBuilder}.
+     *
+     * @return The newly created {@link NotificationBuilder};
+     */
     public static NotificationBuilder chain() {
         return new NotificationBuilder();
     }
 
+    /**
+     * Builder for {@link Notification notfications} to allow inline creation of
+     * them.
+     *
+     * @see Notification
+     */
     @Setter
     @Accessors(chain = true,
                fluent = true)
     public static class NotificationBuilder {
+        /**
+         * Caption.
+         *
+         */
         private String caption = null;
+        /**
+         * Description.
+         *
+         */
         private String description = null;
+        /**
+         * Type.
+         *
+         */
         private Type type = Type.HUMANIZED_MESSAGE;
+        /**
+         * Icon.
+         *
+         */
         private Resource icon = null;
+        /**
+         * Position.
+         *
+         */
         private Position position = Position.TOP_CENTER;
+        /**
+         * Delay in ms.
+         *
+         */
         private Integer delayMsec = null;
+        /**
+         * Style name.
+         *
+         */
         private String styleName = null;
+        /**
+         * Whether HTML content is allowed.
+         *
+         */
         private Boolean htmlContentAllowed = null;
 
+        /**
+         * Constructor of NotificationBuilder.
+         *
+         */
         private NotificationBuilder() {
             // Nothing to do.
         }
 
+        /**
+         * Builds a {@link Notification notification} using {@link #caption},
+         * {@link #description}, {@link #type}, {@link #icon},
+         * {@link #position}, {@link #delayMsec}, {@link #styleName} and
+         * {@link #htmlContentAllowed}.
+         *
+         * @return The newly created {@link Notification notification}.
+         */
         public Notification build() {
             final Notification notification = new Notification(this.caption, this.type);
             if (this.description != null) {
@@ -75,6 +134,11 @@ public class NotificationUtil {
             return notification;
         }
 
+        /**
+         * Shows the notifcation built using {@link #build()} on the current
+         * page.
+         *
+         */
         public void show() {
             this.build().show(Page.getCurrent());
         }

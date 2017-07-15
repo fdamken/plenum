@@ -23,8 +23,18 @@ import com.vaadin.ui.AbstractField;
 
 import lombok.experimental.UtilityClass;
 
+/**
+ * Utilities for forms.
+ *
+ */
 @UtilityClass
 public class FormUtil {
+    /**
+     * Clears the given fields and removes the component errors.
+     *
+     * @param fields
+     *            The fields to clear.
+     */
     public static void clear(final AbstractField<?>... fields) {
         for (final AbstractField<?> field : fields) {
             field.clear();
