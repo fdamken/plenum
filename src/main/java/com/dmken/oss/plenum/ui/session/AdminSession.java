@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
 
 import com.dmken.oss.plenum.ui.util.UIUtil;
 import com.dmken.oss.plenum.ui.view.AdminView;
-import com.dmken.oss.plenum.ui.window.LoginWindow;
+import com.dmken.oss.plenum.ui.window.LoginModal;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.UI;
 
@@ -83,7 +83,7 @@ public class AdminSession implements Serializable {
      *            {@link UI}.
      */
     public void openLoginWindow(final UI ui) {
-        UIUtil.openRedirectWindow(new LoginWindow(passwd -> {
+        UIUtil.openRedirectWindow(new LoginModal(passwd -> {
             if (this.authenticate(passwd)) {
                 ui.getNavigator().navigateTo(AdminView.NAME);
 

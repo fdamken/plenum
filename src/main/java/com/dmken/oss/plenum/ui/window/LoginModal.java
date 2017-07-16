@@ -28,7 +28,7 @@ import com.vaadin.ui.Window;
  * A simple window providing a simple login form accepting a password only.
  *
  */
-public class LoginWindow extends Window {
+public class LoginModal extends Window {
     /**
      * The serial version UID.
      *
@@ -43,14 +43,19 @@ public class LoginWindow extends Window {
 
     /**
      * Constructor of AdminLoginWindow.
-     * 
+     *
      * @param action
      *            Function for validating the password and executing stuff.
      */
-    public LoginWindow(final Function<String, Boolean> action) {
+    public LoginModal(final Function<String, Boolean> action) {
         this.setContent(this.loginForm);
-        this.setSizeUndefined();
         this.setCaption("Login");
+        this.setModal(true);
+        this.setWidth(23.0F, Unit.EM);
+        this.setHeightUndefined();
+        this.center();
+
+        this.loginForm.setWidth(100, Unit.PERCENTAGE);
 
         this.loginForm.addLoginListener(password -> {
             if (action.apply(password)) {
