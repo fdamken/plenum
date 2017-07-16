@@ -81,6 +81,7 @@ public class CreatePlenumView extends CreatePlenumDesign implements View {
         this.buttonSave.addClickListener(event -> {
             final Plenum bindPlenum = new Plenum();
             try {
+                this.binder.validate();
                 this.binder.writeBean(bindPlenum);
             } catch (final ValidationException ex) {
                 NotificationUtil.chain()
