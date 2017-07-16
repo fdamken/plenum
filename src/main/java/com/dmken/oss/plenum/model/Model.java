@@ -27,7 +27,15 @@ import java.util.Comparator;
  *
  */
 public interface Model extends Serializable {
+    /**
+     * Comparing models using their IDs.
+     *
+     */
     Comparator<Model> ID_COMPARATOR = Comparator.comparing(Model::getId, Integer::compare);
 
+    /**
+     *
+     * @return The id of the model.
+     */
     Integer getId();
 }

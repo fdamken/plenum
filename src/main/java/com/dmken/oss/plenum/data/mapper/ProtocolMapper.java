@@ -31,15 +31,61 @@ import com.dmken.oss.plenum.model.Protocol;
  *
  */
 public interface ProtocolMapper extends BaseMapper<Protocol> {
+    /**
+     * Finds all protocols for the given plenum ID.
+     *
+     * @param plenumId
+     *            The ID of the plenum to find the protocols for.
+     * @return All protocols for the plenum.
+     */
     SortedSet<Protocol> findByPlenumId(@Param("plenumId") final int plenumId);
 
+    /**
+     * Creates the given protocol with respect to the name, description, URL and
+     * read-only URL values. Generates an ID and sets it.
+     *
+     * @param protocol
+     *            The protocol to create.
+     */
     void createProtocol(@Param("protocol") final Protocol protocol);
 
+    /**
+     * Sets the name of the protocol with the given ID.
+     *
+     * @param id
+     *            The ID of the protocol to modify.
+     * @param name
+     *            The name to set.
+     */
     void setName(@Param("id") final int id, @Param("name") final String name);
 
+    /**
+     * Sets the description of the protocol with the given ID.
+     *
+     * @param id
+     *            The ID of the protocol to modify.
+     * @param description
+     *            The description to set.
+     */
     void setDescription(@Param("id") final int id, @Param("description") final String description);
 
+    /**
+     * Sets the read-only URL of the protocol with the given ID.
+     *
+     * @param id
+     *            The ID of the protocol to modify.
+     * @param url
+     *            The read-only URL to set.
+     */
     void setUrl(@Param("id") final int id, @Param("url") final URL url);
 
+    /**
+     * Sets the read-only URL of the protocol with the given ID.
+     *
+     * @param id
+     *            The ID of the protocol to modify.
+     * @param readOnlyUrl
+     *            The read-only URL to set.
+     */
     void setReadOnlyUrl(@Param("id") final int id, @Param("readOnlyURL") final URL readOnlyUrl);
 }

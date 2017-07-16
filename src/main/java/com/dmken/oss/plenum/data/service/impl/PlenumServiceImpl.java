@@ -323,6 +323,12 @@ public class PlenumServiceImpl implements PlenumService {
         return plenum;
     }
 
+    /**
+     * Resolves the given plenum and sets the protocols and the speak lists.
+     *
+     * @param plenum
+     *            The plenum to resolve.
+     */
     private void resolve(final Plenum plenum) {
         plenum.setProtocols(this.protocolService.retrieveProtocolsOfPlenum(plenum.getId()));
         plenum.setSpeakLists(this.speakListService.retrieveSpeakListsOfPlenum(plenum.getId()));

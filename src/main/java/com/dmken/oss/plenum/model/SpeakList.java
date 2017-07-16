@@ -80,6 +80,11 @@ public class SpeakList implements Model, Comparable<SpeakList> {
         return this.name.compareTo(that.name);
     }
 
+    /**
+     * Pulls a speaker from the queue and sets it as the current speaker.
+     *
+     * @return The next speaker.
+     */
     public SpeakListEntry next() {
         final SpeakListEntry speakListEntry = this.entries.poll();
         this.setSpeaking(speakListEntry);
