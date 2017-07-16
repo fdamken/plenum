@@ -21,6 +21,7 @@ package com.dmken.oss.plenum.data.service;
 
 import java.time.LocalDateTime;
 import java.util.SortedSet;
+import java.util.UUID;
 
 import com.dmken.oss.plenum.data.service.exception.NoSuchPlenumException;
 import com.dmken.oss.plenum.data.service.exception.NoSuchProtocolException;
@@ -38,11 +39,15 @@ public interface PlenumService {
 
     Plenum retrievePlenum(final int plenumId) throws NoSuchPlenumException;
 
-    Plenum createPlenum(final String name, final String description);
+    Plenum retrievePlenum(final UUID reference) throws NoSuchPlenumException;
+
+    Plenum createPlenum(final String name, final String description, final String password);
 
     Plenum setName(final int plenumId, final String name) throws NoSuchPlenumException;
 
     Plenum setDescription(final int plenumId, final String description) throws NoSuchPlenumException;
+
+    Plenum setPassword(final int plenumId, final String password) throws NoSuchPlenumException;
 
     Plenum setStart(final int plenumId, final LocalDateTime start) throws NoSuchPlenumException;
 

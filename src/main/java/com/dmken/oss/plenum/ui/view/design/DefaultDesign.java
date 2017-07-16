@@ -19,10 +19,10 @@
  */
 package com.dmken.oss.plenum.ui.view.design;
 
-import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.ValoTheme;
 
 @SuppressWarnings("javadoc")
 public class DefaultDesign extends VerticalLayout {
@@ -41,16 +41,17 @@ public class DefaultDesign extends VerticalLayout {
      *
      */
     public DefaultDesign() {
-        this.labelWelcome = new Label("<h2>Welcome</h2>", ContentMode.HTML);
+        this.labelWelcome = new Label("Welcome");
         this.labelText = new Label("Hello and welcome to the Plenum Manager. The software "
                 + "for managing large plenums using speak lists, speaker numbering and a lot more.");
         this.buttonCreatePlenum = new Button("Create Plenum");
 
-        this.buttonCreatePlenum.setStyleName("huge primary");
+        this.labelWelcome.addStyleName(ValoTheme.LABEL_H2);
+        this.buttonCreatePlenum.addStyleName(ValoTheme.BUTTON_LARGE);
+        this.buttonCreatePlenum.addStyleName(ValoTheme.BUTTON_PRIMARY);
 
         this.addComponent(this.labelWelcome);
         this.addComponent(this.labelText);
         this.addComponent(this.buttonCreatePlenum);
-
     }
 }

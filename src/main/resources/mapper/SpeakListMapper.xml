@@ -18,34 +18,14 @@
 	</select>
 
 	<!-- SpeakListMapper -->
-	<select id="findByPlenum" parameterType="Map" resultMap="maps.speakList">
+	<select id="findByPlenumId" parameterType="Map" resultMap="maps.speakList">
 		SELECT
-			SpeakList_Resolved.id AS id,
-			SpeakList_Resolved.name AS name,
-			SpeakList_Resolved.description AS description,
-			SpeakList_Resolved.speakerSpeakListId AS speakerSpeakListId,
-			SpeakList_Resolved.speakingSpeakerId AS speakingSpeakerId,
-			SpeakList_Resolved.speakingSpeakerNumber AS speakingSpeakerNumber,
-			SpeakList_Resolved.speakingSpeakerDisplayName AS speakingSpeakerDisplayName,
-			SpeakList_Resolved.speakingSpeakerSince AS speakingSpeakerSince,
-			SpeakList_Resolved.speakingSpeakerUntil AS speakingSpeakerUntil,
-			SpeakList_Resolved.speakListEntrySpeakListId AS speakListEntrySpeakListId,
-			SpeakList_Resolved.speakListEntryId AS speakListEntryId
-			SpeakList_Resolved.speakListEntryPriority AS speakListEntryPriority,
-			SpeakList_Resolved.speakListEntrySpoke AS speakListEntrySpoke,
-			SpeakList_Resolved.speakListEntryFrom AS speakListEntryFrom,
-			SpeakList_Resolved.speakListEntryTo AS speakListEntryTo,
-			SpeakList_Resolved.speakerSpeakListEntryId AS speakerSpeakListEntryId,
-			SpeakList_Resolved.speakListSpeakerId AS speakListSpeakerId,
-			SpeakList_Resolved.speakListSpeakerNumber AS speakListSpeakerNumber,
-			SpeakList_Resolved.speakListSpeakerDisplayName AS speakListSpeakerDisplayName,
-			SpeakList_Resolved.speakListSpeakerSince AS speakListSpeakerSince,
-			SpeakList_Resolved.speakListSpeakerUntil AS speakListSpeakerUntil
+			*
 		FROM
 			Plenum_SpeakList
+		INNER JOIN SpeakList_Resolved ON Plenum_SpeakList.speakListId = SpeakList_Resolved.id
 		WHERE
 			plenumId = #{plenumId}
-		INNER JOIN SpeakList_Resolved ON Plenum_Protocol.speakListId = SpeakList_Resolved.id
 	</select>
 	<select id="findSpeaker" parameterType="Map" resultMap="maps.speakList">
 		SELECT

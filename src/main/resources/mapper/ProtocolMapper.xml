@@ -26,7 +26,7 @@
 	</select>
 
 	<!-- ProtocolMapper -->
-	<select id="findbyPlenumId" parameterType="Map" resultMap="maps.protocol">
+	<select id="findByPlenumId" parameterType="Map" resultMap="maps.protocol">
 		SELECT
 			Protocol.id AS id,
 			Protocol.name AS name,
@@ -35,9 +35,9 @@
 			Protocol.readOnlyUrl AS readOnlyUrl
 		FROM
 			Plenum_Protocol
+		INNER JOIN Protocol ON Plenum_Protocol.protocolId = Protocol.id
 		WHERE
 			plenumId = #{plenumId}
-		INNER JOIN Protocol ON Plenum_Protocol.protocolId = Protocol.id
 	</select>
 	<insert id="createProtocol" parameterType="Map" useGeneratedKeys="true" keyProperty="protocol.id" keyColumn="id">
 		INSERT INTO Protocol (

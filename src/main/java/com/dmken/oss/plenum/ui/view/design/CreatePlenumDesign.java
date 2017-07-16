@@ -22,8 +22,10 @@ package com.dmken.oss.plenum.ui.view.design;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Panel;
+import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.ValoTheme;
 
 @SuppressWarnings("javadoc")
 public class CreatePlenumDesign extends VerticalLayout {
@@ -38,11 +40,12 @@ public class CreatePlenumDesign extends VerticalLayout {
 
     protected TextField inputName;
     protected TextField inputDescription;
+    protected PasswordField inputPassword;
 
     protected Button buttonSave;
 
     /**
-     * Constructor of DefaultViewDesign.
+     * Constructor of CreatePlenumDesign.
      *
      */
     public CreatePlenumDesign() {
@@ -56,16 +59,19 @@ public class CreatePlenumDesign extends VerticalLayout {
 
         this.inputName = new TextField();
         this.inputDescription = new TextField();
+        this.inputPassword = new PasswordField();
         this.buttonSave = new Button();
 
         this.inputName.setCaption("Name");
         this.inputName.setRequiredIndicatorVisible(true);
         this.inputDescription.setCaption("Description");
+        this.inputPassword.setCaption("Password");
         this.buttonSave.setCaption("Save");
-        this.buttonSave.setStyleName("primary");
+        this.buttonSave.addStyleName(ValoTheme.BUTTON_PRIMARY);
 
         this.form.addComponent(this.inputName);
         this.form.addComponent(this.inputDescription);
+        this.form.addComponent(this.inputPassword);
         this.form.addComponent(this.buttonSave);
         this.panel.setContent(this.form);
         this.addComponent(this.panel);

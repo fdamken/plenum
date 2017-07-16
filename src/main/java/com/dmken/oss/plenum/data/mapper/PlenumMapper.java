@@ -40,6 +40,8 @@ public interface PlenumMapper extends BaseMapper<Plenum> {
 
     void setDescription(@Param("id") final int id, @Param("description") final String description);
 
+    void setPassword(@Param("id") final int id, @Param("password") final String password);
+
     void setStart(@Param("id") final int id, @Param("start") final LocalDateTime start);
 
     void setEnd(@Param("id") final int id, @Param("end") final LocalDateTime end);

@@ -71,6 +71,11 @@ public class Plenum implements Model {
      */
     private String description;
     /**
+     * Password.
+     *
+     */
+    private String password;
+    /**
      * Start time where the plenum has started.
      *
      */

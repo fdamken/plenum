@@ -22,6 +22,7 @@ package com.dmken.oss.plenum.data.service.impl;
 import java.time.LocalDateTime;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -91,8 +92,22 @@ public class PlenumServiceImpl implements PlenumService {
         if (plenum == null) {
             throw new NoSuchPlenumException("Unable to find plenum with id=" + plenumId + "!");
         }
-        plenum.setProtocols(this.protocolService.retrieveProtocolsOfPlenum(plenumId));
-        plenum.setSpeakLists(this.speakListService.retrieveSpeakListsOfPlenum(plenumId));
+        this.resolve(plenum);
+        return plenum;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see com.dmken.oss.plenum.data.service.PlenumService#retrievePlenum(java.util.UUID)
+     */
+    @Override
+    public Plenum retrievePlenum(final UUID reference) throws NoSuchPlenumException {
+        final Plenum plenum = this.plenumMapper.retrievePlenum(reference);
+        if (plenum == null) {
+            throw new NoSuchPlenumException("Unable to find plenum with reference=" + reference + "!");
+        }
+        this.resolve(plenum);
         return plenum;
     }
 
@@ -100,14 +115,15 @@ public class PlenumServiceImpl implements PlenumService {
      * {@inheritDoc}
      *
      * @see com.dmken.oss.plenum.data.service.PlenumService#createPlenum(java.lang.String,
-     *      java.lang.String)
+     *      java.lang.String, java.lang.String)
      */
     @Override
     @Transactional
-    public Plenum createPlenum(final String name, final String description) {
+    public Plenum createPlenum(final String name, final String description, final String password) {
         final Plenum plenum = Plenum.builder() //
                 .name(name) //
                 .description(description) //
+                .password(password) //
                 .build();
         this.plenumMapper.createPlenum(plenum);
         return plenum;
@@ -140,6 +156,21 @@ public class PlenumServiceImpl implements PlenumService {
         final Plenum plenum = this.retrievePlenum(plenumId);
         this.plenumMapper.setDescription(plenumId, description);
         plenum.setDescription(description);
+        return plenum;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see com.dmken.oss.plenum.data.service.PlenumService#setPassword(int,
+     *      java.lang.String)
+     */
+    @Override
+    @Transactional
+    public Plenum setPassword(final int plenumId, final String password) throws NoSuchPlenumException {
+        final Plenum plenum = this.retrievePlenum(plenumId);
+        this.plenumMapper.setPassword(plenumId, password);
+        plenum.setPassword(password);
         return plenum;
     }
 
@@ -290,5 +321,10 @@ public class PlenumServiceImpl implements PlenumService {
         this.plenumMapper.removeSpeakList(plenumId, speakListId);
         plenum.getSpeakLists().removeIf(speakList -> speakList.getId() == speakListId);
         return plenum;
+    }
+
+    private void resolve(final Plenum plenum) {
+        plenum.setProtocols(this.protocolService.retrieveProtocolsOfPlenum(plenum.getId()));
+        plenum.setSpeakLists(this.speakListService.retrieveSpeakListsOfPlenum(plenum.getId()));
     }
 }

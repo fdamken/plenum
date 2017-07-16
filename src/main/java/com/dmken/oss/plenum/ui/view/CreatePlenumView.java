@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.dmken.oss.plenum.data.service.PlenumService;
 import com.dmken.oss.plenum.model.Plenum;
+import com.dmken.oss.plenum.ui.session.PlenumSession;
 import com.dmken.oss.plenum.ui.util.FormUtil;
 import com.dmken.oss.plenum.ui.util.NotificationUtil;
 import com.dmken.oss.plenum.ui.view.design.CreatePlenumDesign;
@@ -51,7 +52,7 @@ public class CreatePlenumView extends CreatePlenumDesign implements View {
      * View name.
      *
      */
-    public static final String NAME = "create-plenum";
+    public static final String NAME = "plenum-create";
 
     /**
      * The {@link PlenumService}.
@@ -59,6 +60,12 @@ public class CreatePlenumView extends CreatePlenumDesign implements View {
      */
     @Autowired
     private PlenumService plenumService;
+    /**
+     * The {@link PlenumSession}.
+     *
+     */
+    @Autowired
+    private PlenumSession plenumSession;
 
     /**
      * The binder for {@link Plenum}.
@@ -81,6 +88,8 @@ public class CreatePlenumView extends CreatePlenumDesign implements View {
                 .bind(Plenum::getName, Plenum::setName);
         this.binder.forField(this.inputDescription)
                 .bind(Plenum::getDescription, Plenum::setDescription);
+        this.binder.forField(this.inputPassword)
+                .bind(Plenum::getPassword, Plenum::setPassword);
 
         this.buttonSave.addClickListener(event -> {
             final Plenum bindPlenum = new Plenum();
@@ -95,15 +104,20 @@ public class CreatePlenumView extends CreatePlenumDesign implements View {
                         .show();
                 return;
             }
-            final Plenum plenum = this.plenumService.createPlenum(bindPlenum.getName(), bindPlenum.getDescription());
 
-            System.out.println("Created plenum " + plenum);
+            final Plenum plenum = this.plenumService.createPlenum(bindPlenum.getName(), bindPlenum.getDescription(),
+                    bindPlenum.getPassword());
+            this.plenumSession.setPlenum(plenum);
+            this.plenumSession.setAuthenticated(true);
+            // Redirect to plenum view.
+            this.getUI().getNavigator().navigateTo(PlenumView.NAME);
 
             NotificationUtil.chain()
                     .caption("Created")
                     .description("The plenum was created.")
                     .show();
             FormUtil.clear(this.inputName, this.inputDescription);
+
         });
     }
 

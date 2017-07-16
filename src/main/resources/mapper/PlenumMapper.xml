@@ -30,11 +30,13 @@
 		INSERT INTO Plenum (
 			reference,
 			name,
-			description
+			description,
+			password
 		) VALUES (
 			#{plenum.reference},
 			#{plenum.name},
-			#{plenum.description}
+			#{plenum.description},
+			#{plenum.password}
 		)
 	</insert>
 	<update id="setName" parameterType="Map">
@@ -50,6 +52,14 @@
 			Plenum
 		SET
 			description = #{description}
+		WHERE
+			id = #{id}
+	</update>
+	<update id="setPassword" parameterType="Map">
+		UPDATE
+			Plenum
+		SET
+			password = #{password}
 		WHERE
 			id = #{id}
 	</update>
