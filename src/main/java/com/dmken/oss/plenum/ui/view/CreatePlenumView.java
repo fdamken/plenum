@@ -53,6 +53,10 @@ public class CreatePlenumView extends CreatePlenumDesign implements View {
      */
     public static final String NAME = "create-plenum";
 
+    /**
+     * The {@link PlenumService}.
+     *
+     */
     @Autowired
     private PlenumService plenumService;
 
