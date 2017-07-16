@@ -51,6 +51,7 @@ public class LoginModal extends Window {
         this.setContent(this.loginForm);
         this.setCaption("Login");
         this.setModal(true);
+        this.setResizable(false);
         this.setWidth(23.0F, Unit.EM);
         this.setHeightUndefined();
         this.center();
