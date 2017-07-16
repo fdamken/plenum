@@ -18,6 +18,7 @@
 	<typeHandlers>
 		<typeHandler handler="com.dmken.oss.plenum.data.handler.PriorityHandler" />
 		<typeHandler handler="com.dmken.oss.plenum.data.handler.URLHandler" />
+		<typeHandler handler="com.dmken.oss.plenum.data.handler.UUIDHandler" />
 	</typeHandlers>
 	<mappers>
 		<mapper resource="maps.xml" />

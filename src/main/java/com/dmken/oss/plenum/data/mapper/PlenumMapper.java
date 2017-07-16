@@ -20,7 +20,7 @@
 package com.dmken.oss.plenum.data.mapper;
 
 import java.time.LocalDateTime;
-import java.util.SortedSet;
+import java.util.UUID;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -32,7 +32,7 @@ import com.dmken.oss.plenum.model.Speaker;
  *
  */
 public interface PlenumMapper extends BaseMapper<Plenum> {
-    SortedSet<Plenum> retrievePlenums();
+    Plenum retrievePlenum(@Param("reference") final UUID reference);
 
     void createPlenum(@Param("plenum") final Plenum plenum);
 

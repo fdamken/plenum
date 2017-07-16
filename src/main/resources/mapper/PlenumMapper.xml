@@ -18,11 +18,21 @@
 	</select>
 
 	<!-- PlenumMapper -->
+	<select id="retrievePlenum" parameterType="Map" resultMap="maps.plenum">
+		SELECT
+			*
+		FROM
+			Plenum_Resolved
+		WHERE
+			reference = #{reference}
+	</select>
 	<insert id="createPlenum" parameterType="Map" useGeneratedKeys="true" keyProperty="plenum.id" keyColumn="id">
 		INSERT INTO Plenum (
+			reference,
 			name,
 			description
 		) VALUES (
+			#{plenum.reference},
 			#{plenum.name},
 			#{plenum.description}
 		)

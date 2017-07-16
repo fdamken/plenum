@@ -11,12 +11,14 @@ CREATE TABLE IF NOT EXISTS Protocol (
 
 CREATE TABLE IF NOT EXISTS Plenum (
     id INT NOT NULL AUTO_INCREMENT,
+    reference VARCHAR(37) NOT NULL,
     name VARCHAR(32) NOT NULL,
     description VARCHAR(256) NULL,
     start DATETIME NULL,
     `end` DATETIME NULL,
     protocolId INT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE KEY (reference)
 ) CHARACTER SET utf8 COLLATE utf8_bin;
 
 CREATE TABLE IF NOT EXISTS Speaker (
@@ -81,6 +83,7 @@ CREATE TABLE IF NOT EXISTS Plenum_SpeakList (
 CREATE OR REPLACE VIEW Plenum_Resolved AS
     SELECT
         Plenum.id AS id,
+        Plenum.reference AS reference,
         Plenum.name AS name,
         Plenum.description AS description,
         Plenum.start AS start,

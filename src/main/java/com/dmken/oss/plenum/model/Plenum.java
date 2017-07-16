@@ -21,10 +21,13 @@ package com.dmken.oss.plenum.model;
 
 import java.time.LocalDateTime;
 import java.util.SortedSet;
+import java.util.UUID;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Wither;
 
@@ -51,6 +54,12 @@ public class Plenum implements Model {
      *
      */
     private Integer id;
+    /**
+     * Reference.
+     *
+     */
+    @Getter(AccessLevel.PRIVATE)
+    private final UUID reference = UUID.randomUUID();
     /**
      * Name.
      *
