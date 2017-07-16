@@ -1,3 +1,5 @@
+plenum.admin.password: admin
+
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
